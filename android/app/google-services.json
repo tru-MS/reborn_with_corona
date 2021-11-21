@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "402620727268",
+    "project_id": "reborn-with-corona",
+    "storage_bucket": "reborn-with-corona.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402620727268:android:c57caea47f2a727b8551f1",
+        "android_client_info": {
+          "package_name": "com.kms.reborn_with_corona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402620727268-8ocbronquvq8rvccq0ph8uct1rvocjfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnA0CinKcXY_XqntvGTbaJCyRIah_JXjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402620727268-8ocbronquvq8rvccq0ph8uct1rvocjfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
