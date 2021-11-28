@@ -6,11 +6,11 @@
 //*********************************************************************//
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reborn_with_corona/2_main_see/c_statics_page.dart';
 
 import '1_login_see/a_login_page.dart';
 import '1_login_see/b_sign_page.dart';
 import '2_main_see/a_main_page.dart';
-import '2_main_see/c_statics_page.dart';
 import '3_setting_see/a_privacy_page.dart';
 import '3_setting_see/b_manual_page.dart';
 import '3_setting_see/c_made_page.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
          '/': (context) => const LoginPage(),
           '/sign': (context) => const SignPage(),
           '/main': (context) => const MainPage(),
-          '/statistics': (context) => const StatisticsPage(),
+          '/statistics': (context) => StatisticsPage(),
         '/privacy': (context) => const PrivacyPage(),
         '/manual': (context) => const ManualPage(),
         '/made': (context) => const MadePage(),

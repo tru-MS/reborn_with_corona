@@ -8,6 +8,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reborn_with_corona/2_main_see/b_checklist_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatefulWidget {
@@ -70,6 +72,8 @@ class _SettingPage extends State<SettingPage> {
               MaterialButton(
                 onPressed: () {
                   // 네비게이터의 모든 스택을 지우고 홈으로 이동
+                  final HealthController healthController = Get.find();
+                  healthController.reset();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/', (Route<dynamic> route) => false);
                 },
