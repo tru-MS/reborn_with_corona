@@ -12,7 +12,10 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:reborn_with_corona/0_database/a_user_list.dart';
+import 'package:reborn_with_corona/2_main_see/a_main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,8 +29,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
   FirebaseDatabase? _database;
   DatabaseReference? reference;
-  final String _databaseURL =
-      'https://reborn-with-corona-default-rtdb.firebaseio.com/';
+  final String _databaseURL = 'https://reborn-with-corona-default-rtdb.firebaseio.com/';
 
   double opacity = 0;
   AnimationController? _animationController;
@@ -41,8 +43,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
     _idTextController = TextEditingController();
     _pwTextController = TextEditingController();
 
-    _animationController =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
     _animationController!.repeat();
     Timer(const Duration(seconds: 2), () {
       setState(() {
@@ -89,8 +90,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                       child: TextField(
                         controller: _idTextController,
                         maxLines: 1,
-                        decoration: const InputDecoration(
-                            labelText: '학번', border: OutlineInputBorder()),
+                        decoration: const InputDecoration(labelText: '학번', border: OutlineInputBorder()),
                       ),
                     ),
                     const SizedBox(
@@ -102,8 +102,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                         controller: _pwTextController,
                         obscureText: true,
                         maxLines: 1,
-                        decoration: const InputDecoration(
-                            labelText: '비밀번호', border: OutlineInputBorder()),
+                        decoration: const InputDecoration(labelText: '비밀번호', border: OutlineInputBorder()),
                       ),
                     ),
                     Row(
@@ -120,31 +119,21 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                             child: const Text('넘김')),
                         TextButton(
                             onPressed: () {
-                              if (_idTextController!.value.text.isEmpty ||
-                                  _pwTextController!.value.text.isEmpty) {
+                              if (_idTextController!.value.text.isEmpty || _pwTextController!.value.text.isEmpty) {
                                 makeDialog('빈칸이 있습니다');
                               } else {
-                                reference!
-                                    .child(_idTextController!.value.text)
-                                    .onValue
-                                    .listen((event) {
+                                reference!.child(_idTextController!.value.text).onValue.listen((event) {
                                   if (event.snapshot.value == null) {
                                     makeDialog('학번이 없습니다');
                                   } else {
-                                    reference!
-                                        .child(_idTextController!.value.text)
-                                        .onChildAdded
-                                        .listen((event) {
-                                      User user =
-                                          User.fromSnapshot(event.snapshot);
-                                      var bytes = utf8.encode(
-                                          _pwTextController!.value.text);
+                                    reference!.child(_idTextController!.value.text).onChildAdded.listen((event) {
+
+                                      User user = User.fromSnapshot(event.snapshot);
+                                      var bytes = utf8.encode(_pwTextController!.value.text);
                                       var digest = sha1.convert(bytes);
                                       if (user.pw == digest.toString()) {
-                                        Navigator.of(context)
-                                            .pushReplacementNamed('/main',
-                                                arguments: _idTextController!
-                                                    .value.text);
+                                        final DataController dataController = Get.put(DataController(user.id));
+                                        Navigator.of(context).pushReplacementNamed('/main', arguments: _idTextController!.value.text);
                                       } else {
                                         makeDialog('비밀번호가 틀립니다');
                                       }
@@ -173,8 +162,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
         context: context,
         builder: (context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
             content: Text(text),
           );
         });
