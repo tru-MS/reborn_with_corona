@@ -9,7 +9,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reborn_with_corona/2_main_see/a_main_page.dart';
 import 'package:reborn_with_corona/2_main_see/b_checklist_page.dart';
+import 'package:reborn_with_corona/2_main_see/c_statics_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatefulWidget {
@@ -73,7 +75,9 @@ class _SettingPage extends State<SettingPage> {
                 onPressed: () {
                   // 네비게이터의 모든 스택을 지우고 홈으로 이동
                   final HealthController healthController = Get.find();
-                  healthController.reset();
+                  final LocationController locationController = Get.find();
+                  healthController.resetData();
+                  locationController.resetData();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/', (Route<dynamic> route) => false);
                 },
@@ -111,33 +115,43 @@ class _SettingPage extends State<SettingPage> {
               ),
               MaterialButton(
                 onPressed: () {
-                  AlertDialog dialog = AlertDialog(
-                    title: const Text('아이디 삭제'),
-                    content: const Text('아이디를 삭제하시겠습니까?'),
-                    actions: <Widget>[
-                      MaterialButton(
-                          onPressed: () {
-                            print(widget.id);
-                            widget.databaseReference!
-                                .child('user')
-                                .child(widget.id!)
-                                .remove();
-                            // 네비게이터의 모든 스택을 지우고 홈으로 이동
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/', (Route<dynamic> route) => false);
-                          },
-                          child: const Text('예')),
-                      MaterialButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('아니요')),
-                    ],
-                  );
                   showDialog(
                       context: context,
-                      builder: (context) {
-                        return dialog;
+                      builder: (context1) {
+                        return  AlertDialog(
+                          title: const Text('아이디 삭제'),
+                          content: const Text('아이디를 삭제하시겠습니까?'),
+                          actions: <Widget>[
+                            MaterialButton(
+                                onPressed: () async {
+                                  final DataController dataController = Get.find();
+                                  final userReference = dataController.database!.reference().child("user");
+                                  final userListReference = dataController.database!.reference().child("userList");
+                                  final historyReference = dataController.database!.reference().child("history");
+                                  final LocationController locationController = Get.find();
+                                  final HealthController healthController = Get.find();
+
+                                  userReference.child(dataController.userId).remove();
+                                  historyReference.child(dataController.userId).remove();
+                                  locationController.userList.remove(dataController.userId);
+                                  userListReference.update({
+                                    'userList':locationController.userList
+                                  });
+
+                                  healthController.resetData();
+                                  locationController.resetData();
+
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      '/', (Route<dynamic> route) => false);
+                                },
+                                child: const Text('예')),
+                            MaterialButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('아니요')),
+                          ],
+                        );
                       });
                 },
                 child: const Text('회원 탈퇴', style: TextStyle(fontSize: 20)),

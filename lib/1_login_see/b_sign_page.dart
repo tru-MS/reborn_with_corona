@@ -101,8 +101,10 @@ class _SignPage extends State<SignPage> {
                       final userReference = _database!.reference().child("userList");
                       final userSnapshot = await userReference.get();
                       List<String> userList = [];
-                      for(String string in userSnapshot.value['userList']){
-                        userList.add(string);
+                      for(dynamic d in userSnapshot.value['userList']){
+                        if(d!=null){
+                          userList.add(d);
+                        }
                       }
                       userList.add(_idTextController!.value.text);
                       userReference.update({
