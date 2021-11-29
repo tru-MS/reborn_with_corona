@@ -28,7 +28,7 @@ class HealthController extends GetxController{
     }
   }
 
-  void reset(){
+  void resetData(){
     for(int i = 0 ; i <12 ; i++){
       checkList[i] = false;
     }

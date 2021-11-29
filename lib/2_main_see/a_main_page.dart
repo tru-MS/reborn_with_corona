@@ -50,7 +50,6 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
     super.initState();
     controller = TabController(length: 3, vsync: this); // 3개의 탭창
     final HealthController healthController = Get.put(HealthController());
-    final LocationController locationController = Get.put(LocationController());
 
     /// 탭바 컨트롤러에 제출을 하지 않았다면 다른 탭으로 이동하지 못하게 listener 추가 및 다이얼로그 생성
     controller!.addListener(() {
@@ -103,6 +102,7 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final LocationController locationController = Get.put(LocationController());
     // 로그인때 사용한 아이디 가져오기
     return Scaffold(
         body: TabBarView(

@@ -41,6 +41,8 @@ class LocationController extends GetxController{
 
   var historyList = <History>[].obs;
 
+  List<String> userList = [];
+
   bool flag = false;
   int timeStamp = DateTime.now().year*10000+DateTime.now().month*100+DateTime.now().day;
 
@@ -57,10 +59,12 @@ class LocationController extends GetxController{
 
     final userReference = dataController.database!.reference().child("userList");
     final userSnapshot = await userReference.get();
-    List<String> userList = [];
+    userList = [];
 
-    for(String string in userSnapshot.value['userList']){
-      userList.add(string);
+    for(dynamic d in userSnapshot.value['userList']){
+      if(d!=null){
+        userList.add(d);
+      }
     }
     totalStudentNumber = <int>[].obs;
     totalHealthNumber = <int>[].obs;
@@ -96,7 +100,6 @@ class LocationController extends GetxController{
       else if(totalStudentNumber[i]==0){totalDangerInfo[i]=0;}
       else if(10<=danger && danger<20){totalDangerInfo[i]=1;}
       else{totalDangerInfo[i]=2;}
-      print("[QWER] total health $i :${totalHealthNumber[i]} , total student ${totalStudentNumber[i]} , totalDander : ${totalDangerInfo[i]}");
     }
 
 
@@ -127,16 +130,14 @@ class LocationController extends GetxController{
         }
 
     );
-    for(int i = 0 ; i<locationList.length ; i++){
-      print("[QWER] location : ${locationList[i]}");
-    }
     update();
   }
 
-  void reset(){
+  void resetData(){
     for(int i = 0 ; i<18 ; i++){
       locationCheckList[i] = false;
     }
+    locationList = <int>[].obs;
   }
 }
 
@@ -175,8 +176,6 @@ class _StatisticsPage extends State<StatisticsPage> {
           }
         }
       }
-
-      print("[QWER] location list :${locationController.locationList.toString()}");
 
       /// 이미 장소를 정한적이 있다면 업데이트, 없다면 장소선택에 대한 정보를 DB 에 업데이트
       historyReference.child(dataController.userId).once().then(
@@ -334,9 +333,7 @@ class _StatisticsPage extends State<StatisticsPage> {
                 );
               },
               itemBuilder: (context , index){
-              print("[QWER] s : ${locationController.locationList[index]*2} , index : $index");
-              print("[QWER] check :${locationController.totalDangerInfo[locationController.locationList[index]*2]} , ${locationController.locationCheckList[locationController.locationList[index]*2+1]}");
-                return Container(
+               return Container(
                   height: 80,
                   color: Colors.grey,
                   child: Row(
