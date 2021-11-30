@@ -277,7 +277,12 @@ class _CheckListPage extends State<CheckListPage> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      healthController.isSubmitted.value = true;
+                      if(healthController.isSubmitted.value){
+
+                      }
+                      else{
+                        healthController.isSubmitted.value = true;
+                      }
                     },
                     icon: const Icon(Icons.add, size: 13),
                     label: const Text('제출'),
