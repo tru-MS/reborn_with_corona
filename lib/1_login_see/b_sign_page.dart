@@ -6,14 +6,12 @@
 //*********************************************************************//
 
 import 'dart:convert';
-import 'dart:async';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reborn_with_corona/0_database/a_user_list.dart';
-import 'package:reborn_with_corona/2_main_see/a_main_page.dart';
 
 class SignPage extends StatefulWidget {
   const SignPage({Key? key}) : super(key: key);
@@ -22,6 +20,12 @@ class SignPage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _SignPage();
   }
+}
+
+class TextController extends GetxController{
+  var idText = "".obs;
+  var pwText = "".obs;
+  var pwCheckText = "".obs;
 }
 
 class _SignPage extends State<SignPage> {
@@ -46,6 +50,7 @@ class _SignPage extends State<SignPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextController textController = Get.put(TextController());
     return Scaffold(
       appBar: AppBar(
         title: const Text('회원 가입'),
@@ -91,43 +96,63 @@ class _SignPage extends State<SignPage> {
               ),
               FlatButton(
                 onPressed: () async {
-                  if (_idTextController!.value.text.length >= 4 && _pwTextController!.value.text.length >= 6) {
-                    if (_pwTextController!.value.text == _pwCheckTextController!.value.text) {
-                      var bytes = utf8.encode(_pwTextController!.value.text);
-                      var digest = sha1.convert(bytes);
-                      // var degreeOfRisk = 0;
+                  textController.idText.value = _idTextController!.value.text;
+                  textController.pwText.value = _pwTextController!.value.text;
+                  textController.pwCheckText.value = _pwCheckTextController!.value.text;
 
-                      /// 회원가입 시 DB 에 userList 정보를 업데이트
-                      final userReference = _database!.reference().child("userList");
-                      final userSnapshot = await userReference.get();
-                      List<String> userList = [];
-                      for(dynamic d in userSnapshot.value['userList']){
-                        if(d!=null){
-                          userList.add(d);
-                        }
-                      }
-                      userList.add(_idTextController!.value.text);
-                      userReference.update({
-                        'userList':userList
-                      });
-                      //////////////////////////////////////
+                  final userReference = _database!.reference().child("user");
+                  final userListReference = _database!.reference().child("userList");
+                  final userListSnapshot = await userListReference.get();
 
-                      reference!
-                          .child(_idTextController!.value.text)
-                          .push()
-                          .set(User(_idTextController!.value.text, digest.toString(), DateTime.now().toIso8601String()).toJson())
-                          .then((_) {
-
-                        Navigator.of(context).pop();
-                        makeDialog('회원가입이 완료되었습니다');
-                      });
-                    }
-                    else {
-                      makeDialog('비밀번호가 틀립니다');
-                    }
+                  if(textController.idText.value == ""){
+                    makeDialog("학번을 입력해 주세요.");
                   }
-                  else {
-                    makeDialog('길이가 짧습니다');
+                  else{
+                    userReference.child(textController.idText.value).once().then(
+                            (data){
+                          if(data.value == null){
+                            if (textController.idText.value.length >= 4 && textController.pwText.value.length >= 6) {
+                              if (textController.pwText.value == textController.pwCheckText.value) {
+                                var bytes = utf8.encode(textController.pwText.value);
+                                var digest = sha1.convert(bytes);
+                                // var degreeOfRisk = 0;
+
+                                /// 회원가입 시 DB 에 userList 정보를 업데이트
+
+                                List<String> userList = [];
+                                for(dynamic d in userListSnapshot.value['userList']){
+                                  if(d!=null){
+                                    userList.add(d);
+                                  }
+                                }
+                                userList.add(textController.idText.value);
+                                userListReference.update({
+                                  'userList':userList
+                                });
+                                //////////////////////////////////////
+
+                                reference!
+                                    .child(textController.idText.value)
+                                    .push()
+                                    .set(User(textController.idText.value, digest.toString(), DateTime.now().toIso8601String()).toJson())
+                                    .then((_) {
+
+                                  Navigator.of(context).pop();
+                                  makeDialog('회원가입이 완료되었습니다');
+                                });
+                              }
+                              else {
+                                makeDialog('비밀번호가 틀립니다');
+                              }
+                            }
+                            else {
+                              makeDialog('길이가 짧습니다');
+                            }
+                          }
+                          else{
+                            makeDialog("이미 가입된 학번 입니다.");
+                          }
+                        });
                   }
                 },
                 child: const Text(

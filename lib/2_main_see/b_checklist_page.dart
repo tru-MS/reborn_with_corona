@@ -292,8 +292,14 @@ class _CheckListPage extends State<CheckListPage> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      healthController.isSubmitted.value = true;
-                      makeDialog('제출되었습니다.');
+
+                      if(healthController.isSubmitted.value){
+
+                      }
+                      else{
+                        healthController.isSubmitted.value = true;
+                        makeDialog('제출되었습니다.');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xE13F99FF),
