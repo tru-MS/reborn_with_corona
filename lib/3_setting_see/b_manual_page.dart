@@ -22,7 +22,7 @@ class _ManualPage extends State<ManualPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('만든 이'),
+        title: const Text('사용법'),
         backgroundColor: Colors.amber,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),

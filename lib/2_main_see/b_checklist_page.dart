@@ -61,7 +61,8 @@ class _CheckListPage extends State<CheckListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('증상 체크 리스트'),
-        backgroundColor: Colors.green,
+        titleTextStyle: const TextStyle( fontSize: 20, fontWeight: FontWeight.bold,),
+        backgroundColor: const Color(0xff82B1FF),
         leading: const Icon(Icons.content_paste_sharp),
       ),
       body: SingleChildScrollView(
@@ -69,13 +70,19 @@ class _CheckListPage extends State<CheckListPage> {
           child: Column(
             children: <Widget>[
               const ListTile(
+                leading: CircleAvatar(
+                  child: Icon(Icons.task_alt),
+                  backgroundColor: Color(0xFFCDE6FF),
+                ),
                 title: Text('공통적인 증상'),
-                tileColor: Colors.cyan,
+
+
+                tileColor: Colors.white,
               ),
               CheckboxListTile(
                 title: const Text('열이 있나요?'),
                 value: healthController.checkList[0],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 15;
@@ -91,7 +98,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('기침을 하나요?'),
                 value: healthController.checkList[1],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 15;
@@ -107,7 +114,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('피로감이 있나요?'),
                 value: healthController.checkList[2],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 12;
@@ -123,7 +130,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('미각이나 후각의 상실이 있나요?'),
                 value: healthController.checkList[3],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 2;
@@ -137,13 +144,17 @@ class _CheckListPage extends State<CheckListPage> {
                 },
               ),
               const ListTile(
+                leading: CircleAvatar(
+                  child: Icon(Icons.task_alt),
+                  backgroundColor: Color(0xFFCDE6FF),
+                ),
                 title: Text('가벼운 증상'),
-                tileColor: Colors.cyan,
+                tileColor: Colors.white,
               ),
               CheckboxListTile(
                 title: const Text('인후통이 있나요?'),
                 value: healthController.checkList[4],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 4;
@@ -159,7 +170,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('두통이 있나요?'),
                 value: healthController.checkList[5],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 4;
@@ -175,7 +186,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('몸살이 있나요?'),
                 value: healthController.checkList[6],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 14;
@@ -191,7 +202,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('설사를 하나요?'),
                 value: healthController.checkList[7],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 8;
@@ -207,7 +218,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('눈에 충혈이 있나요?'),
                 value: healthController.checkList[8],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 2;
@@ -221,13 +232,17 @@ class _CheckListPage extends State<CheckListPage> {
                 },
               ),
               const ListTile(
+                leading: CircleAvatar(
+                  child: Icon(Icons.task_alt),
+                  backgroundColor: Color(0xFFCDE6FF),
+                ),
                 title: Text('심각한 증상'),
-                tileColor: Colors.cyan,
+                tileColor: Colors.white,
               ),
               CheckboxListTile(
                 title: const Text('호흡곤란이나 숨가쁨이 있나요?'),
                 value: healthController.checkList[9],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 14;
@@ -243,7 +258,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('언어장애가 있나요?'),
                 value: healthController.checkList[10],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 2;
@@ -259,7 +274,7 @@ class _CheckListPage extends State<CheckListPage> {
               CheckboxListTile(
                 title: const Text('가슴 통증이 있나요?'),
                 value: healthController.checkList[11],
-                tileColor: Colors.yellow,
+                tileColor: Colors.white,
                 onChanged: (bool? value) {
                   if(value!){
                     healthController.totalHealthValue.value += 8;
@@ -277,13 +292,19 @@ class _CheckListPage extends State<CheckListPage> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
+
                       if(healthController.isSubmitted.value){
 
                       }
                       else{
                         healthController.isSubmitted.value = true;
+                        makeDialog('제출되었습니다.');
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xE13F99FF),
+                      shape: const StadiumBorder(), // 가장자리가 동그란 보더
+                    ),
                     icon: const Icon(Icons.add, size: 13),
                     label: const Text('제출'),
                   ),
@@ -292,6 +313,10 @@ class _CheckListPage extends State<CheckListPage> {
                     onPressed: () {
                       Navigator.of(context).pushNamed('/manual');
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xE13F99FF),
+                      shape: const StadiumBorder(), // 가장자리가 동그란 보더
+                    ),
                     icon: const Icon(Icons.flag, size: 13),
                     label: const Text('사용법'),
                   ),
@@ -303,5 +328,14 @@ class _CheckListPage extends State<CheckListPage> {
         ),
       ),
     );
+  }
+  void makeDialog(String text) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(text),
+          );
+        });
   }
 }

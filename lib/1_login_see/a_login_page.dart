@@ -109,14 +109,15 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         TextButton(
                             onPressed: () {
+                              Navigator.of(context).pushNamed('/privacy');
+                            },
+                            child: const Text('정책')),
+                        TextButton(
+                            onPressed: () {
                               Navigator.of(context).pushNamed('/sign');
                             },
                             child: const Text('회원가입')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/main');
-                            },
-                            child: const Text('넘김')),
+
                         TextButton(
                             onPressed: () {
                               if (_idTextController!.value.text.isEmpty || _pwTextController!.value.text.isEmpty) {
