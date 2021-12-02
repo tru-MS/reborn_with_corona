@@ -118,16 +118,19 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
           tabs: const <Tab>[
             Tab(
               icon: Icon(Icons.check_box),
+              text: "증상",
             ),
             Tab(
               icon: Icon(Icons.view_agenda),
+              text: "장소",
             ),
             Tab(
               icon: Icon(Icons.settings),
+              text: "설정",
             )
           ],
-          labelColor: Colors.amber,
-          indicatorColor: Colors.deepOrangeAccent,
+          labelColor: const Color(0xffE6C800),
+          indicatorColor: Colors.orangeAccent,
           controller: controller,
         ));
   }

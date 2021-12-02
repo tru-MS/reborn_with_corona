@@ -317,7 +317,8 @@ class _StatisticsPage extends State<StatisticsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('위치 지정'),
-        backgroundColor: Colors.amber,
+        titleTextStyle: const TextStyle( fontSize: 20, fontWeight: FontWeight.bold,),
+        backgroundColor: const Color(0xff283593),//0xff82B1FF
         leading: const Icon(Icons.location_city),
       ),
       /// 선택한 장소 정보 없을 때 / 있을 때 UI 분리
@@ -351,10 +352,10 @@ class _StatisticsPage extends State<StatisticsPage> {
                               Text("오전"),
                               SizedBox(width: 15,),
                               Text("위험도 : ${
-                                  locationController.totalDangerInfo[locationController.locationList[index]*2]==0?"안전":
-                                  locationController.totalDangerInfo[locationController.locationList[index]*2]==1?"주의":"위험"}"),
+                                  locationController.totalDangerInfo[locationController.locationList[index]*2]==0?"안전 ,":
+                                  locationController.totalDangerInfo[locationController.locationList[index]*2]==1?"주의 ,":"위험 ,"}"),
                               SizedBox(width: 15,),
-                              Text("${locationController.totalHealthNumber[locationController.locationList[index]*2]/locationController.totalStudentNumber[locationController.locationList[index]*2]} 점")
+                              Text("${locationController.totalHealthNumber[locationController.locationList[index]*2]/locationController.totalStudentNumber[locationController.locationList[index]*2]} % ,   응답 : ${locationController.totalStudentNumber[locationController.locationList[index]*2]}")
                             ],
                           ):Container(),
                           /// 오후 UI
@@ -364,10 +365,10 @@ class _StatisticsPage extends State<StatisticsPage> {
                               Text("오후"),
                               SizedBox(width: 15,),
                               Text("위험도 : ${
-                                  locationController.totalDangerInfo[locationController.locationList[index]*2+1]==0?"안전":
-                                  locationController.totalDangerInfo[locationController.locationList[index]*2+1]==1?"주의":"위험"}"),
+                                  locationController.totalDangerInfo[locationController.locationList[index]*2+1]==0?"안전 ,":
+                                  locationController.totalDangerInfo[locationController.locationList[index]*2+1]==1?"주의 ,":"위험 ,"}"),
                               SizedBox(width: 15,),
-                              Text("${locationController.totalHealthNumber[locationController.locationList[index]*2+1]/locationController.totalStudentNumber[locationController.locationList[index]*2+1]} 점")
+                              Text("${locationController.totalHealthNumber[locationController.locationList[index]*2+1]/locationController.totalStudentNumber[locationController.locationList[index]*2+1]} % ,   응답 : ${locationController.totalStudentNumber[locationController.locationList[index]*2+1]}")
                             ],
                           ):Container()
                         ],
@@ -382,7 +383,7 @@ class _StatisticsPage extends State<StatisticsPage> {
           addDialog("장소 지정하기");
         },
         child: const Icon(Icons.add),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xff3f51b5),
       ),
     );
   }
