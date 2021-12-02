@@ -399,7 +399,7 @@ class _StatisticsPage extends State<StatisticsPage> {
             onPressed: () {
               updateLocationList();
             },
-            child: const Icon(Icons.assistant_direction),
+            child: const Icon(Icons.published_with_changes),
             backgroundColor: const Color(0xff3f51b5),
           ),
           Spacer(),
