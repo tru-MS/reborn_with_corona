@@ -73,11 +73,11 @@ class _SettingPage extends State<SettingPage> {
               ),
               MaterialButton(
                 onPressed: () {
-                  // 네비게이터의 모든 스택을 지우고 홈으로 이동
-                  final HealthController healthController = Get.find();
-                  final LocationController locationController = Get.find();
-                  healthController.resetData();
-                  locationController.resetData();
+
+                  Get.delete<HealthController>();
+                  Get.delete<LocationController>();
+                  Get.delete<DataController>();
+
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/', (Route<dynamic> route) => false);
                 },

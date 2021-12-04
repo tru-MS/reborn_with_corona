@@ -70,7 +70,7 @@ class LocationController extends GetxController{
     totalHealthNumber = <int>[].obs;
     totalDangerInfo = <int>[].obs;
 
-    for(int i = 0 ; i<18 ; i++){
+    for(int i = 0 ; i<menuLocation.length*2 ; i++){
       totalStudentNumber.add(0);
       totalHealthNumber.add(0);
       totalDangerInfo.add(0);
@@ -82,7 +82,7 @@ class LocationController extends GetxController{
               (DataSnapshot dataSnapshot){
             if(dataSnapshot.value !=null){
               History history = History.fromJson(dataSnapshot.value);
-              for(int i = 0 ; i<18 ; i++){
+              for(int i = 0 ; i<menuLocation.length*2 ; i++){
                 if(history.checkList[i] && history.timeStamp == timeStamp){
                   totalHealthNumber[i] += history.health;
                   totalStudentNumber[i] ++;
@@ -94,7 +94,7 @@ class LocationController extends GetxController{
     }
 
     ///학생 총 수와 총 제출 정보로 위험도 업데이트
-    for(int i = 0 ; i<18 ; i++){
+    for(int i = 0 ; i<menuLocation.length*2 ; i++){
       double danger = totalHealthNumber[i]/totalStudentNumber[i];
       if(danger<10){totalDangerInfo[i]=0;}
       else if(totalStudentNumber[i]==0){totalDangerInfo[i]=0;}
@@ -117,13 +117,13 @@ class LocationController extends GetxController{
             }
             else{
               historyReference.child(dataController.userId).remove();
-              for(int i = 0 ; i<18 ; i++){
+              for(int i = 0 ; i<menuLocation.length*2 ; i++){
                 locationCheckList.add(false);
               }
             }
           }
           else{
-            for(int i = 0 ; i<18 ; i++){
+            for(int i = 0 ; i<menuLocation.length*2 ; i++){
               locationCheckList.add(false);
             }
           }
@@ -134,7 +134,7 @@ class LocationController extends GetxController{
   }
 
   void resetData(){
-    for(int i = 0 ; i<18 ; i++){
+    for(int i = 0 ; i<menuLocation.length*2 ; i++){
       locationCheckList[i] = false;
     }
     locationList = <int>[].obs;
@@ -227,7 +227,7 @@ class _StatisticsPage extends State<StatisticsPage> {
                               child: Wrap(
                                 spacing: 10,
                                 runSpacing: 10,
-                                children: List.generate( 9, (position){
+                                children: List.generate( locationController.menuLocation.length, (position){
                                   return Container(
                                       width: 250,
                                       height: 100,
