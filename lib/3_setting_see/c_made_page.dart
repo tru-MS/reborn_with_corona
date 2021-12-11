@@ -47,7 +47,7 @@ class _MadePage extends State<MadePage> {
                   '\n'
                   '저희 팀은 위드코로나시대에 앞서 학교에서 사용할 수 있는 간단한 증상체크앱을 만들고 싶었습니다.\n'
                   '이 앱으로 아직 끝나지 않은 코로나에 대한 경각심과 안전을 도모하는 기회가 되었으면 합니다.\n'
-                  ''
+                  '감사합니다.\n'
                   '',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
