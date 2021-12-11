@@ -46,6 +46,9 @@ class _SettingPage extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정하기'),
+        titleTextStyle: const TextStyle( fontSize: 20, fontWeight: FontWeight.bold,),
+        backgroundColor: const Color(0xff283593),//0xff82B1FF
+        leading: const Icon(Icons.settings_outlined),
       ),
       body: Container(
         child: Center(

@@ -345,7 +345,7 @@ class _StatisticsPage extends State<StatisticsPage> {
               }
                return Container(
                   height: 80,
-                  color: Colors.grey,
+                  color: Color(0xFFE0E0E0),
                   child: Row(
                     children: [
                       SizedBox(width: 15,),
@@ -405,7 +405,7 @@ class _StatisticsPage extends State<StatisticsPage> {
           Spacer(),
           FloatingActionButton(
             onPressed: () {
-              addDialog("장소 지정하기");
+              addDialog("장소 지정");
             },
             child: const Icon(Icons.add),
             backgroundColor: const Color(0xff3f51b5),

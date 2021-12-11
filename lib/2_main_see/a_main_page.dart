@@ -129,7 +129,7 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
               text: "설정",
             )
           ],
-          labelColor: const Color(0xffE6C800),
+          labelColor: const Color(0xFF616161),//0xffE6C800
           indicatorColor: Colors.orangeAccent,
           controller: controller,
         ));
